@@ -22,9 +22,9 @@ class User(db.Model):
 
 class CountryCard(db.Model):
     id: Mapped[int] = mapped_column(primary_key = True)
-    ccna2: Mapped[str] = mapped_column(db.String(3), unique=True, nullable=False)
+    cca2: Mapped[str] = mapped_column(db.String(3), unique=True, nullable=False)
     country_name: Mapped[str] = mapped_column(db.String(128), unique=True, nullable=False)
     flag_url: Mapped[str] = mapped_column(db.String(128), nullable=False)
     region: Mapped[str] = mapped_column(db.String(32), nullable=False)
-    sub_region: Mapped[str] = mapped_column(db.String(128), nullable=True)
+    subregion: Mapped[str] = mapped_column(db.String(128), nullable=True)
     population: Mapped[int] = mapped_column(db.SmallInteger, nullable=False)
