@@ -14,9 +14,8 @@ def register():
         username = form.username.data
         email = form.email.data
         password = form.password.data
-
     return 'test'
 
 @app.route("/test")
 def test():
-    return get_all_data()
+    return 'test'

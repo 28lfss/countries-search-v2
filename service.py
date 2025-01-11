@@ -1,5 +1,5 @@
 import requests
-from models.db_models import db, CountryCard
+from models.db_models import db, Country
 
 url = "https://restcountries.com/v3.1/all" # This URL get all the api data
 
@@ -10,7 +10,6 @@ def get_all_data():
         return data
     else:
         return "Error"
-
 
 def countries_cards():
     response = requests.get(url)
@@ -27,7 +26,7 @@ def countries_cards():
             except:
                 subregion = "--"
 
-            country_card = CountryCard(
+            country_card = Country(
                 cca2 = cca2,
                 country_name = name,
                 flag_url = flag_url,
