@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from dataclasses import dataclass
 from sqlalchemy.orm import DeclarativeBase, Mapped
 from sqlalchemy.testing.schema import mapped_column
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -13,7 +14,6 @@ user_favorites = db.Table('user_favorites',
     db.Column('country_id', db.Integer, db.ForeignKey('country.id'), primary_key=True)
 )
 
-
 class User(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     username: Mapped[str] = mapped_column(db.String(20), unique=True, nullable=False)
@@ -26,7 +26,6 @@ class User(db.Model):
 
     def check_password(self, password):
         check_password_hash(self.password_hash, password)
-
 
 class Country(db.Model):
     id: Mapped[int] = mapped_column(primary_key = True)

@@ -16,6 +16,6 @@ def register():
         password = form.password.data
     return 'test'
 
-@app.route("/test")
+@app.route("/api/all")
 def test():
-    return 'test'
+    return get_all_countries()
