@@ -1,5 +1,4 @@
 from flask_sqlalchemy import SQLAlchemy
-from dataclasses import dataclass
 from sqlalchemy.orm import DeclarativeBase, Mapped
 from sqlalchemy.testing.schema import mapped_column
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -25,7 +24,11 @@ class User(db.Model):
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
-        check_password_hash(self.password_hash, password)
+        return check_password_hash(self.password_hash, password)
+
+    def __init__(self, username, email):
+        self.username = username
+        self.email = email
 
 class Country(db.Model):
     id: Mapped[int] = mapped_column(primary_key = True)

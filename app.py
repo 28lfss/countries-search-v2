@@ -5,9 +5,9 @@ app = Flask(__name__)
 
 from views import *
 
-app.secret_key = "MySecretKey"
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.sqlite3"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.secret_key = 'MySecretKey'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.sqlite3'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 
