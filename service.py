@@ -28,8 +28,8 @@ def get_all_countries():
         })
     return jsonify(formated_countries)
 
-def get_by_username(user_name):
-    user = search_username(user_name)
+def get_by_username(username):
+    user = search_username(username)
     return user
 
 def get_by_email(email):
