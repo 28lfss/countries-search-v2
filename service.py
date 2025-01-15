@@ -1,6 +1,6 @@
 from flask import jsonify
 
-from repository import all_countries, search_username
+from repository import all_countries, search_username, search_email
 import requests
 
 url = 'https://restcountries.com/v3.1/all' # This URL get all the api data
@@ -30,4 +30,8 @@ def get_all_countries():
 
 def get_by_username(user_name):
     user = search_username(user_name)
+    return user
+
+def get_by_email(email):
+    user = search_email(email)
     return user
