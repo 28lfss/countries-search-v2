@@ -1,5 +1,9 @@
 from models.db_models import User, Country, user_favorites
 
+def search_id(id):
+    data = User.query.get(id)
+    return data
+
 def search_username(username):
     data = User.query.filter_by(username=username).first()
     return data
