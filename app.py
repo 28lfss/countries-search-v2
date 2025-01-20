@@ -3,7 +3,7 @@ from models.db_models import db
 
 app = Flask(__name__)
 
-from views import *
+from endpoints import *
 
 app.secret_key = 'MySecretKey'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.sqlite3'
