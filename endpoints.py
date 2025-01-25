@@ -4,7 +4,6 @@ from service import *
 
 from models.db_models import db, User
 from models.login_form import LoginForm
-from models.register_form import RegisterForm
 
 
 @app.route('/')
@@ -17,34 +16,11 @@ def test():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    form = RegisterForm()
-    print("------------------")
-    print(form.validate())
-    print(form.validate_on_submit())
-    print(
-        form.username.data,
-        form.email.data,
-        form.password.data
-    )
-    print("------------------")
-    if form.validate_on_submit():
-        user = User(
-            username=form.username.data,
-            email=form.email.data
-        )
-        user.set_password(form.password.data)
-
-        #db.session.add(user)
-        #db.session.commit()
-        print("-----ACCOUNT CREATED-----")
-
-        form.username.data = ''
-        form.email.data = ''
-        form.password.data = ''
-        form.confirm_password.data = ''
-
+    x = 0
+    if x == 1:
         return redirect(url_for('login'))
-    return render_template('register.html', form=form)
+    else:
+        return render_template('register.html')
 
 @app.route('/auth-user', methods=['POST'])
 def auth_user():
