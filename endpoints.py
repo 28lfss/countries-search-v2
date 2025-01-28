@@ -1,9 +1,7 @@
 from app import app
-from flask import render_template, redirect, url_for, request
+from flask import render_template, request
 from service import *
 
-from models.db_models import db, User
-from models.login_form import LoginForm
 from models.register_form import RegisterForm
 
 
