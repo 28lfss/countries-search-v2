@@ -36,23 +36,37 @@ const checkEmail = (event) => {
     })
 }
 
+const checkPasswords = (event) => {
+    event.preventDefault()
+
+    const passwordFormElement = document.getElementById("password")
+    const password = passwordFormElement.value
+    const confirmPasswordFormElement = document.getElementById("confirm_password")
+    const confirmPassword = confirmPasswordFormElement.value
+
+    if (password === confirmPassword) {
+        confirmPasswordFormElement.setCustomValidity("")
+    } else {
+        confirmPasswordFormElement.setCustomValidity("Passwords must match");
+    }
+
+    confirmPasswordFormElement.reportValidity();
+}
+
 function submitAuthentication(event) {
     event.preventDefault()
     checkUsername(event)
     checkEmail(event)
+    checkPasswords(event)
 }
 
-const clearUsernameValidity = () => {
-    const usernameFormElement = document.getElementById("username");
-    usernameFormElement.setCustomValidity("");
-    usernameFormElement.reportValidity();
+const clearValidity = (elementId) => {
+    const formElement = document.getElementById(elementId);
+    formElement.setCustomValidity("");
+    formElement.reportValidity();
+
 };
 
-const clearEmailValidity = () => {
-    const emailFormElement = document.getElementById("email");
-    emailFormElement.setCustomValidity("");
-    emailFormElement.reportValidity();
-};
-
-document.getElementById("username").addEventListener("input", clearUsernameValidity);
-document.getElementById("email").addEventListener("input", clearEmailValidity);
+["username", "email", "confirm_password"].forEach((id) => {
+    document.getElementById(id).addEventListener("input", () => clearValidity(id));
+});
