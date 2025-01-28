@@ -4,7 +4,7 @@ const checkUsername = (event) => {
     const usernameFormElement = document.getElementById("username")
     const username = usernameFormElement.value
 
-    axios.post('/api/auth/user', {
+    axios.post('/api/auth/username', {
         username: username
     })
     .then((response) => {

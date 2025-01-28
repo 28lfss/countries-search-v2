@@ -22,7 +22,7 @@ def validate_submit():
         else:
             return "invalid user"
 
-@auth.route('/user', methods=['POST'])
+@auth.route('/username', methods=['POST'])
 def auth_user():
     if request.method == 'POST':
         data = jsonify({'username_exists': 'false'})
