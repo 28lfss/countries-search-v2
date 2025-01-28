@@ -4,7 +4,7 @@ const checkUsername = (event) => {
     const usernameFormElement = document.getElementById("username")
     const username = usernameFormElement.value
 
-    axios.post('/auth-user', {
+    axios.post('/api/auth/user', {
         username: username
     })
     .then((response) => {
@@ -23,7 +23,7 @@ const checkEmail = (event) => {
     const emailFormElement = document.getElementById("email")
     const email = emailFormElement.value
 
-    axios.post('/auth-email', {
+    axios.post('/api/auth/email', {
         email: email
     })
     .then((response) => {
