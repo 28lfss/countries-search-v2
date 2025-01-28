@@ -55,15 +55,5 @@ def auth_email():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        username = form.username.data
-        password = form.password.data
-
-        user = search_username(username)
-
-        if user and user.check_password(password):
-            return redirect(url_for('index'))
-        else:
-            return 'Invalid username or password.'
-    return render_template('login.html', form=form)
+    #TODO: add feature
+    return render_template('login.html')
