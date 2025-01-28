@@ -6,32 +6,59 @@
 </head>
 <body>
 <h1>Register</h1>
-<form name='register-form' action='/register' method='POST'>
-
+<form name='register-form' action='/validate-register' method='POST' onsubmit="submitAuthentication(event)">
     <label>Username
-        <input name="username" type="text" required>
+        <input
+            id="username"
+            name="username"
+            type="text"
+            autocomplete="username"
+            minlength="4"
+            maxlength="20"
+            pattern="[a-zA-Z0-9_]+"
+            required
+        >
     </label>
 
     <label>Email
-        <input name="email" type="email" required>
+        <input
+            id="email"
+            name="email"
+            maxlength="255"
+            pattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+            required
+        >
     </label>
 
     <label>Password
-        <input name="password" type="password" required>
+        <input
+            name="password"
+            type="password"
+            autocomplete="new-password"
+            minlength="6"
+            maxlength="30"
+            pattern = "[\x21-\x7E]+"
+            required
+        >
     </label>
 
     <label>Confirm Password
-        <input name="confirm_password" type="password" required>
+        <input
+            name="confirm_password"
+            type="password"
+            autocomplete="new-password"
+            minlength="6"
+            maxlength="30"
+            pattern= "[\x21-\x7E]+"
+            required
+        >
     </label>
 
-    <input type="submit" name="submit">
+    <input type="submit" name="submit" value="Submit">
 </form>
+
 <script src="{{ url_for('static', filename='register.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-<script>
-
-</script>
 
 </body>
 </html>
