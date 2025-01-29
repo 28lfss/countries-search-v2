@@ -5,28 +5,65 @@
     <title>Register</title>
 </head>
 <body>
-    <h1>Login</h1>
-    <form method="POST">
-        {{ form.hidden_tag() }}
-        <div>
-            {{ form.username.label }}
-            {{ form.username() }}
-        </div>
-        <div>
-            {{ form.email.label }}
-            {{ form.email() }}
-        </div>
-        <div>
-            {{ form.password.label }}
-            {{ form.password() }}
-        </div>
-        <div>
-            {{ form.confirm_password.label }}
-            {{ form.confirm_password() }}
-        </div>
-        <div>
-            {{ form.submit() }}
-        </div>
-    </form>
+<h1>Register</h1>
+
+<!-- TODO: fix form action -->
+<form name='register-form' action='/api/auth/register' method='POST' onsubmit="submitAuthentication(event)">
+    <label>Username
+        <input
+            id="username"
+            name="username"
+            type="text"
+            autocomplete="username"
+            minlength="4"
+            maxlength="20"
+            pattern="[a-zA-Z0-9_]+"
+            required
+        >
+    </label>
+
+    <!-- TODO: fix pattern validation -->
+    <label>Email
+        <input
+            id="email"
+            name="email"
+            maxlength="255"
+            pattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+            required
+        >
+    </label>
+
+    <label>Password
+        <input
+            id="password"
+            name="password"
+            type="password"
+            autocomplete="new-password"
+            minlength="6"
+            maxlength="30"
+            pattern = "[\x21-\x7E]+"
+            required
+        >
+    </label>
+
+    <label>Confirm Password
+        <input
+            id="confirm_password"
+            name="confirm_password"
+            type="password"
+            autocomplete="new-password"
+            minlength="6"
+            maxlength="30"
+            pattern= "[\x21-\x7E]+"
+            required
+        >
+    </label>
+
+    <input type="submit" name="submit" value="Submit">
+</form>
+
+<script src="{{ url_for('static', filename='register.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 </body>
 </html>
