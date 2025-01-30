@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from models.register_form import RegisterForm
 from repository import check_username, check_email
 from service import http_status
+from models.db_models import db, User
 
 auth = Blueprint("auth", __name__)
 
@@ -9,17 +10,29 @@ auth = Blueprint("auth", __name__)
 def validate_submit():
     form = request.form
     if request.method == 'POST':
-        user = RegisterForm(
+        register_form = RegisterForm(
             username=form['username'],
             email=form['email'],
             password=form['password'],
             confirm_password=form['confirm_password']
         )
-        return http_status(user.validate_all())
+        for result in register_form.validate_all():
+            if result != 200:
+                return http_status(result)
+
+        user = User(
+            username=form['username'],
+            email=form['email'],
+        )
+        user.set_password(form['password'])
+        db.session.add(user)
+        db.session.commit()
+
+        return "Usuário registrado"
 
 @auth.route('/username', methods=['POST'])
 def auth_user():
-    if request.method ==     'POST':
+    if request.method == 'POST':
         data = jsonify({'username_exists': 'false'})
         username = request.get_json()['username']
         if check_username(username):
