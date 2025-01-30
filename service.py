@@ -28,13 +28,12 @@ def get_all_countries():
         })
     return jsonify(formated_countries)
 
-def http_status (list):
-    for code in list:
-        match code:
+def http_status(request):
+        match request:
             case 200:
-                return jsonify({"message": "OK"}), 200
+                return jsonify({"message": "success"}), 200
             case 520:
-                return jsonify({"message": "username wrong patter"}), 520
+                return jsonify({"message": "username wrong pattern"}), 520
             case 521:
                 return jsonify({"message": "username in use"}), 521
             case 522:
