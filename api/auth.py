@@ -1,8 +1,7 @@
 from flask import Blueprint, request, jsonify
 from models.register_form import RegisterForm
 from repository import check_username, check_email
-
-#from models.login_form import LoginForm
+from service import http_status
 
 auth = Blueprint("auth", __name__)
 
@@ -16,15 +15,11 @@ def validate_submit():
             password=form['password'],
             confirm_password=form['confirm_password']
         )
-
-        if user.validate_all():
-            return "valid user"
-        else:
-            return "invalid user"
+        return http_status(user.validate_all())
 
 @auth.route('/username', methods=['POST'])
 def auth_user():
-    if request.method == 'POST':
+    if request.method ==     'POST':
         data = jsonify({'username_exists': 'false'})
         username = request.get_json()['username']
         if check_username(username):
@@ -39,3 +34,7 @@ def auth_email():
         if check_email(email):
             data = jsonify({'email_exists': 'true'})
         return data
+
+@auth.route('/test', methods=['POST'])
+def test():
+    return "test"
