@@ -1,4 +1,5 @@
 import re
+from flask import jsonify, make_response
 from repository import check_username, check_email
 
 class RegisterForm:
@@ -10,17 +11,36 @@ class RegisterForm:
 
     def validate_username(self):
         pattern = r"^[a-zA-Z0-9_]{4,20}$"
-        return not check_username(self.username) and re.match(pattern, self.username)
+
+        if not re.match(pattern, self.username):
+            status = 520 #STATUS 520: username wrong pattern
+        elif check_username(self.username):
+            status = 521 #STATUS 521: username in use
+        else:
+            status = 200 #STATUS 200: OK
+        return status
 
     def validate_email(self):
         pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-        return not check_email(self.email) and re.match(pattern, self.email)
+
+        if not re.match(pattern, self.email):
+            status = 522 #STATUS 522: email wrong pattern
+        elif check_email(self.email):
+            status = 523 #STATUS 523: email in use
+        else:
+            status = 200 #STATUS 200: OK
+        return status
 
     def validate_passwords(self):
         pattern = r"^[\x21-\x7E]+$"
-        return self.password == self.confirm_password \
-                and re.match(pattern, self.password) \
-                and re.match(pattern, self.password)
+
+        if not re.match(pattern, self.password):
+            status = 524 #STATUS 524: password wrong pattern
+        elif self.password == self.confirm_password:
+            status = 200 #STATUS 200: OK
+        else:
+            status = 525 #STATUS 525: passwords don't match
+        return status
 
     def validate_all(self):
-        return self.validate_username() and self.validate_email() and self.validate_passwords()
+        return [self.validate_username(), self.validate_email(), self.validate_passwords()]
