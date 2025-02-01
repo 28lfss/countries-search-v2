@@ -1,6 +1,5 @@
-import re
-from flask import jsonify, make_response
 from repository import check_username, check_email
+import re
 
 class RegisterForm:
     def __init__(self, username, email, password, confirm_password):
