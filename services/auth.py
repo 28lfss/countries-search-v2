@@ -1,9 +1,5 @@
 from flask import jsonify
 
-from Crypto.Cipher import AES
-from Crypto.Random import get_random_bytes
-from Crypto.Util.Padding import pad, unpad
-
 def get_registration_status(request):
     match request:
         case 200:
