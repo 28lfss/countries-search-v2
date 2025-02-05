@@ -10,71 +10,70 @@ auth = Blueprint("auth", __name__)
 
 @auth.route("/register", methods=["POST"])
 def validate_register_form():
-    if request.method == "POST":
-        form = request.form
-        register_form = RegisterForm(
-            username=form["username"],
-            email=form["email"],
-            password=form["password"],
-            confirm_password=form["confirm_password"]
-        )
-        for result in register_form.validate_all():
-            if result != 200:
-                return get_registration_status(result)
+    form = request.form
+    register_form = RegisterForm(
+        username=form["username"],
+        email=form["email"],
+        password=form["password"],
+        confirm_password=form["confirm_password"]
+    )
 
-        user = User(
-            username=form["username"],
-            email=form["email"],
-        )
-        user.set_password(form["password"])
-        db.session.add(user)
-        db.session.commit()
+    for result in register_form.validate_all():
+        if result != 200:
+            return get_registration_status(result)
 
-        return jsonify({"status": "OK"}), 200
+    user = User(
+        username=form["username"],
+        email=form["email"],
+    )
+    user.set_password(form["password"])
+    db.session.add(user)
+    db.session.commit()
 
-
-@auth.route("/login", methods=["POST"])
-def validate_login_form():
-    if request.method == "POST":
-
-        form = request.form.to_dict()
-        user = get_user_by_username(form["username"]) if check_username(form["username"]) else None
-
-        if user and user.check_password(form["password"]):
-
-            username = form.get("username")
-            timestamp = f"{int(time.time())}" #get timestamp in seconds
-            data = {"timestamp": timestamp, "username": username}
-            token, nonce = generate_user_token(data)
-
-            return jsonify({
-                "token": token,
-                "nonce": nonce
-            }), 200
-        else:
-            return jsonify({"status": "login unauthorized"}), 401
-
+    return jsonify({"status": "OK"}), 200
 
 @auth.route("/username", methods=["POST"])
 def auth_user():
-    if request.method == "POST":
-        data = jsonify({"username_exists": "false"})
-        username = request.get_json()["username"]
-        if check_username(username):
-            data = jsonify({"username_exists": "true"})
-        return data
-
+    data = jsonify({"username_exists": "false"})
+    username = request.get_json()["username"]
+    if check_username(username):
+        data = jsonify({"username_exists": "true"})
+    return data
 
 @auth.route("/email", methods=["POST"])
 def auth_email():
-    if request.method == "POST":
-        data = jsonify({"email_exists": "false"})
-        email = request.get_json()["email"]
-        if check_email(email):
-            data = jsonify({"email_exists": "true"})
-        return data
+    data = jsonify({"email_exists": "false"})
+    email = request.get_json()["email"]
+    if check_email(email):
+        data = jsonify({"email_exists": "true"})
+    return data
 
+@auth.route("/login", methods=["POST"])
+def validate_login_form():
+    form = request.form.to_dict()
+    user = get_user_by_username(form["username"]) if check_username(form["username"]) else None
+    if user and user.check_password(form["password"]):
+        username = form.get("username")
+        timestamp = f"{int(time.time())}" #get timestamp in seconds
+        data = {"timestamp": timestamp, "username": username}
+        token, nonce = generate_user_token(data)
+        return jsonify({
+            "token": token,
+            "nonce": nonce
+        }), 200
+    else:
+        return jsonify({"error": "Login unauthorized"}), 401
+
+@auth.route("/token-validation", methods=["POST"])
+def token_validation():
+    token = request.get_json()["token"]
+    nonce = request.get_json()["nonce"]
+    return validate_user_token(token, nonce)
 
 @auth.route("/test", methods=["GET"])
 def teste():
+    username = "test"
+    timestamp = f"{int(time.time())}" #get timestamp in seconds
+    data = {"timestamp": timestamp, "username": username}
+    token, nonce = generate_user_token(data)
     return "test"
