@@ -69,11 +69,3 @@ def token_validation():
     token = request.get_json()["token"]
     nonce = request.get_json()["nonce"]
     return validate_user_token(token, nonce)
-
-@auth.route("/test", methods=["GET"])
-def teste():
-    username = "test"
-    timestamp = f"{int(time.time())}" #get timestamp in seconds
-    data = {"timestamp": timestamp, "username": username}
-    token, nonce = generate_user_token(data)
-    return "test"

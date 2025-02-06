@@ -11,5 +11,4 @@ def register():
 
 @page.route('/login', methods=['GET'])
 def login():
-    #TODO: add feature
     return render_template('login.html')
