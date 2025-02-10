@@ -1,4 +1,4 @@
-from models.db_models import User, Country, user_favorites
+from models.db_models import User, user_favorites
 
 def get_user_by_id(user_id):
     return User.query.get(user_id)
@@ -14,6 +14,3 @@ def check_username(username):
 
 def check_email(email):
     return User.query.filter_by(email=email).first() is not None
-
-def all_countries():
-    return Country.query.all()
