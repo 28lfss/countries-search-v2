@@ -1,4 +1,4 @@
-from repository import check_username, check_email
+from repository.auth import check_username, check_email
 import re
 
 class RegisterForm:
