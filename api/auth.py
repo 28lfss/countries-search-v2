@@ -6,6 +6,8 @@ from services.auth import get_registration_status
 from services.crypto_utils import generate_user_token, validate_user_token
 import time
 
+from services.mail_sender import generate_new_password
+
 auth = Blueprint("auth", __name__)
 
 @auth.route("/register", methods=["POST"])
@@ -69,3 +71,9 @@ def token_validation():
     token = request.get_json()["token"]
     nonce = request.get_json()["nonce"]
     return validate_user_token(token, nonce)
+
+@auth.route("/reset-password", methods=["POST"])
+def reset_password():
+    user_email = request.get_json()["email"]
+    generate_new_password(user_email)
+    return "ok"
