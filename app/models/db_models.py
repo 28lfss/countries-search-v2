@@ -1,12 +1,7 @@
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import DeclarativeBase, Mapped
+from app.database import db
+from sqlalchemy.orm import Mapped
 from sqlalchemy.testing.schema import mapped_column
 from werkzeug.security import generate_password_hash, check_password_hash
-
-class Base(DeclarativeBase):
-    pass
-
-db = SQLAlchemy(model_class=Base)
 
 user_favorites = db.Table('user_favorites',
     db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
