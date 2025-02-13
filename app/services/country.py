@@ -1,5 +1,5 @@
 from flask import jsonify
-from repository.country import all_countries
+from app.repository.country import all_countries
 import requests
 
 url = 'https://restcountries.com/v3.1/all' # This URL get all the api data

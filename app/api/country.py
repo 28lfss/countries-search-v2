@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-from services.country import get_all_countries
+from app.services.country import get_all_countries
 
 country = Blueprint("country", __name__)
 

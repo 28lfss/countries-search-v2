@@ -1,12 +1,12 @@
 from flask import Blueprint, request, jsonify
-from models.register_form import RegisterForm
-from models.db_models import db, User
-from repository.auth import check_username, check_email, get_user_by_username
-from services.auth import get_registration_status
-from services.crypto_utils import generate_user_token, validate_user_token
+from app.models.register_form import RegisterForm
+from app.models.db_models import db, User
+from app.repository.auth import check_username, check_email, get_user_by_username
+from app.services.auth import get_registration_status
+from app.services.crypto_utils import generate_user_token, validate_user_token
 import time
 
-from services.mail_sender import generate_new_password
+from app.services.mail_sender import generate_new_password
 
 auth = Blueprint("auth", __name__)
 

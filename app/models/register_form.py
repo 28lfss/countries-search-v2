@@ -1,4 +1,4 @@
-from repository.auth import check_username, check_email
+from app.repository.auth import check_username, check_email
 import re
 
 class RegisterForm:
