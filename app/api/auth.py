@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
-from app.models.register_form import RegisterForm
-from app.models.db_models import db, User
+from app.services.register_form import RegisterForm
+from ..database import db
+from app.models.user_model import User
 from app.repository.auth import check_username, check_email, get_user_by_username
 from app.services.auth import get_registration_status
 from app.services.crypto_utils import generate_user_token, validate_user_token

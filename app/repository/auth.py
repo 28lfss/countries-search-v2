@@ -1,5 +1,4 @@
-from app.models.db_models import User
-
+from ..models.user_model import User
 
 def get_user_by_id(user_id):
     return User.query.get(user_id)
