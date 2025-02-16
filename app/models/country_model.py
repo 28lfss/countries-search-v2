@@ -9,3 +9,14 @@ class Country(db.Model):
     region: Mapped[str] = mapped_column(db.String(32), nullable=False)
     subregion: Mapped[str] = mapped_column(db.String(128), nullable=True)
     population: Mapped[int] = mapped_column(db.SmallInteger, nullable=False)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'cca2' : self.cca2,
+            'country_name' : self.country_name,
+            'flag_url' : self.flag_url,
+            'region' : self.region,
+            'subregion' : self.subregion,
+            'population' : self.population
+        }

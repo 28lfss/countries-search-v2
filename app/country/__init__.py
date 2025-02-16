@@ -1,7 +1,5 @@
 from flask import Blueprint
 
-from .country import country
+country_bp = Blueprint("country_bp", __name__)
 
-api = Blueprint("api", __name__, url_prefix="/api")
-
-api.register_blueprint(country, url_prefix="/country")
+from . import routes

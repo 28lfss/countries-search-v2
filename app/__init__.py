@@ -1,10 +1,10 @@
 from flask import Flask
 from app.database import db
-from app.api import api
+from dotenv import load_dotenv
 from app.main import main_bp
 from app.user import user_bp
+from app.country import country_bp
 from app.services.mail_sender import mail
-from dotenv import load_dotenv
 import os
 
 
@@ -28,8 +28,8 @@ def create_app():
     mail.init_app(app)
     db.init_app(app)
 
-    app.register_blueprint(api)
     app.register_blueprint(main_bp)
     app.register_blueprint(user_bp)
+    app.register_blueprint(country_bp)
 
     return app
