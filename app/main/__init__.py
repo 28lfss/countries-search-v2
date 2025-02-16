@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-page = Blueprint("page", __name__)
+page = Blueprint("endpoints", __name__)
 
 from .pages import page
