@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-page = Blueprint("endpoints", __name__)
+main_bp = Blueprint("main", __name__)
 
-from .pages import page
+from . import routes
