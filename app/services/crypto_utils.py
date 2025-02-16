@@ -1,12 +1,10 @@
+from ..aes_key import aes_key
 from Crypto.Cipher import AES
-from Crypto.Random import get_random_bytes
 import base64
 import json
 import time
 
 from flask import jsonify
-
-aes_key = get_random_bytes(32)
 
 token_time_limit = 60 * 15 # Calculate 15min in seconds
 
