@@ -32,4 +32,8 @@ def create_app():
     app.register_blueprint(user_bp)
     app.register_blueprint(country_bp)
 
+# Create a database if it doesn't exist one already
+#    with app.app_context():
+#        db.create_all()
+
     return app
