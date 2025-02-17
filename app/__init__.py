@@ -1,12 +1,14 @@
 from flask import Flask
 from .database_config import db
-from .mail_config import mail
 from dotenv import load_dotenv
 from app.main import main_bp
 from app.user import user_bp
 from app.country import country_bp
 from app.mail import mail_bp
 import os
+
+from flask_mail import Mail
+mail = Mail()
 
 
 def create_app():
