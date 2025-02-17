@@ -1,4 +1,4 @@
-from ..database import db
+from ..database_config import db
 from sqlalchemy.orm import Mapped, mapped_column
 from werkzeug.security import generate_password_hash, check_password_hash
 from .user_favorites_model import user_favorites
@@ -19,7 +19,7 @@ class User(db.Model):
         return {
             "id": self.id,
             "username": self.username,
-            "email": self.email
+            "mail": self.email
         }
 
     def set_password(self, password):

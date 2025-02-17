@@ -1,4 +1,4 @@
-from ..database import db
+from ..database_config import db
 from sqlalchemy.orm import Mapped, mapped_column
 
 class Country(db.Model):

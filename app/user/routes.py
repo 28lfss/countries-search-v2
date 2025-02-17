@@ -1,6 +1,7 @@
 from . import user_bp
 from .services import UserService
 from flask import request, jsonify
+import requests
 
 @user_bp.route("/get-user", methods=["POST"])
 def get_user():
@@ -69,8 +70,12 @@ def validate_token():
 
 @user_bp.route("/forgot-password", methods=["POST"])
 def forgot_password():
-    if UserService.check_email(request.get_json()["email"]):
-        #TODO: send email for new password generation
-        return jsonify({"status": "ok"}), 200
+    user_email = request.get_json()["email"]
+    if UserService.check_email(user_email):
+        response = requests.post(
+            "http://127.0.0.1:5000/mail-reset-password",
+            json={"email": user_email}
+        )
+        return response.json(), response.status_code
     else:
         return jsonify({"error": "Email not found"}), 404

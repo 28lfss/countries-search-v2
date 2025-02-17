@@ -1,5 +1,5 @@
 from app.models.user_model import User
-from app.database import db
+from app.database_config import db
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy import exists
 from flask import jsonify
@@ -36,7 +36,7 @@ class UserService:
         if not re.match(pattern, self.email):
             status = 522 #STATUS 522: email wrong pattern
         elif self.check_email(self.email):
-            status = 523 #STATUS 523: email in use
+            status = 523 #STATUS 523: e mail in use
         else:
             status = 200 #STATUS 200: OK
         return status

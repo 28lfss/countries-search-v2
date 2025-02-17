@@ -1,5 +1,5 @@
 from ..models.country_model import Country
-from ..database import db
+from ..database_config import db
 from flask import jsonify
 import requests
 
