@@ -1,6 +1,6 @@
 from flask import Flask
-from app.database_config import db
-from app.mail_config import mail
+from .database_config import db
+from .mail_config import mail
 from dotenv import load_dotenv
 from app.main import main_bp
 from app.user import user_bp
@@ -35,7 +35,7 @@ def create_app():
     app.register_blueprint(mail_bp)
 
 # Create a database if it doesn't exist one already
-#    with app.app_context():
-#        db.create_all()
+    with app.app_context():
+        db.create_all()
 
     return app
