@@ -1,4 +1,4 @@
-from app.mail_config import mail
+from app import mail
 from flask_mail import Message
 from flask import render_template
 
