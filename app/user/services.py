@@ -5,13 +5,6 @@ from sqlalchemy import exists
 from flask import jsonify
 import re
 
-#Imports for token generation
-from Crypto.Cipher import AES
-from app.aes_key import aes_key
-import base64
-import json
-import time
-
 class UserService:
     def __init__(self, username, email, password, confirm_password):
         self.username = username
@@ -119,25 +112,3 @@ class UserService:
     @staticmethod
     def check_email(email):
         return db.session.query(exists().where(User.email == email)).scalar()
-
-    @staticmethod
-    def generate_session_token(username):
-        timestamp = str(int(time.time()))
-        message = json.dumps({"timestamp": timestamp, "username": username})
-        cipher = AES.new(aes_key, AES.MODE_CTR)
-        encrypted_token = cipher.encrypt(message.encode())
-        return (base64.b64encode(encrypted_token).decode(), # convert token to Base64 to transmit as JSON
-                base64.b64encode(cipher.nonce).decode()) # convert nonce to Base64 to transmit as JSON
-
-    @staticmethod
-    def validate_session_token(token, nonce):
-        token_time_limit = 60 * 15 # Calculate 15 minutes in seconds
-        new_token = base64.b64decode(token)
-        new_nonce = base64.b64decode(nonce)
-        cipher = AES.new(aes_key, AES.MODE_CTR, nonce=new_nonce)
-        decrypted_json = json.loads(cipher.decrypt(new_token).decode()) # Decrypt data
-        timestamp = int(decrypted_json["timestamp"])
-        if (int(time.time()) - timestamp) > token_time_limit:
-            return False
-        else:
-            return True

@@ -3,6 +3,9 @@ from .services import UserService
 from flask import request, jsonify
 import requests
 
+#Crypto Service
+from ..my_crypto import crypto_service
+
 @user_bp.route("/get-user", methods=["POST"])
 def get_user():
     username = request.get_json()["username"]
@@ -48,7 +51,7 @@ def login():
     user = UserService.get_user_by_username(form["username"])
 
     if user and user.check_password(form["password"]):
-        token, nonce = UserService.generate_session_token(user.username)
+        token, nonce = crypto_service.generate_session_token(user.username)
         return jsonify({
             "token": token,
             "nonce": nonce
@@ -60,7 +63,7 @@ def login():
 def validate_token():
     token = request.get_json()["token"]
     nonce = request.get_json()["nonce"]
-    if UserService.validate_session_token(token, nonce):
+    if crypto_service.validate_session_token(token, nonce):
         return jsonify({"status": "ok"})
     else:
         return jsonify({
