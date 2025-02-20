@@ -1,18 +1,14 @@
 from flask import Flask
 from .database_config import db
-#from app.email_sender import email_sender
 from app.mail_config import mail
-
 from dotenv import load_dotenv
+import os
+
+# Blueprints imports
 from app.main import main_bp
 from app.user import user_bp
 from app.country import country_bp
 from app.email_sender import mail_bp
-import os
-
-#from flask_mail import Mail
-
-#mail = Mail()
 
 def create_app():
     app = Flask(__name__)
